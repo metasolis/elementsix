@@ -7,7 +7,7 @@ require('dotenv').config();
 const { ALCHEMY_KEY, ACCOUNT_PRIVATE_KEY } = process.env;
 
 module.exports = {
-   solidity: "0.8.0",
+   solidity: "0.8.1",
    defaultNetwork: "rinkeby",
    networks: {
     hardhat: {},
