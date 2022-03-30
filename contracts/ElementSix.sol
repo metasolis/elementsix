@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -39,6 +39,11 @@ contract ElementSix is ERC721, PullPayment, Ownable {
   function _baseURI() internal view virtual override returns (string memory) {
     return baseTokenURI;
   }
+
+  /// @dev Returns an URI for anyone in public to view
+  function viewBaseUri() public view onlyOwner returns (string memory) {
+    return baseTokenURI;
+  }  
 
   /// @dev Sets the base token URI prefix.
   function setBaseTokenURI(string memory _baseTokenURI) public onlyOwner {

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -22,6 +22,11 @@ contract ES6A is Ownable, ERC721A, ReentrancyGuard {
   function _baseURI() internal view virtual override returns (string memory) {
     return _baseTokenURI;
   }
+
+  /// @dev Returns an URI for anyone in public to view
+  function viewBaseUri() public view onlyOwner returns (string memory) {
+    return _baseTokenURI;
+  }    
 
   function setBaseURI(string calldata baseURI) external onlyOwner {
     _baseTokenURI = baseURI;

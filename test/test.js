@@ -1,13 +1,39 @@
-import hre from 'hardhat';
-import { assert } from 'chai';
+const { expect, assert } = require('chai');
 
-before('get factories', async function () {
+before('Get & Deploy Factories', async function () {
+    // Get Factories
     this.Contrakt = await hre.ethers.getContractFactory('ElementSix');
-    // this.ContraktV2 = await hre.ethers.getContractFactory('ElementSixV2');
+    this.ContraktA = await hre.ethers.getContractFactory('ES6A');
+
+    // Deploy Factories
+    this.eleSix = await this.Contrakt.deploy();
+    this.eSixA = await this.ContraktA.deploy();
+
+});    
+
+
+describe("ElementSix Contract Tests", function() {
+
+    it('checking Element Six Contract name and symbol', async function () {
+        assert(await this.eleSix.name() === "ElementSix");
+        assert(await this.eleSix.symbol() === "E6");
+    })
+
+    it("Checking baseUri", async function () {
+        assert(await this.eleSix.viewBaseUri() === "");
+    });
+
 });
 
-it('checking Element Six', async function () {
-    const eleSix = await this.Contrakt.deploy();
+describe("ES6A Contract Tests", function() {
 
-    assert(await eleSix.name() === "ElementSix");
-})
+    it('checking ES6A Contract name and symbol', async function () {
+        expect(await this.eSixA.name()).to.equal("ES6A");
+        expect(await this.eSixA.symbol()).to.equal("ES6A");
+    })
+
+    it("Checking baseUri", async function () {
+        expect(await this.eSixA.viewBaseUri()).to.equal("");
+    });    
+
+});
